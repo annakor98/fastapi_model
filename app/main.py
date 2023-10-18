@@ -45,7 +45,10 @@ def get_db():
 
 
 @app.post('/predict')
-async def predict(features: schemas.InputFeatures, db: Session = Depends(get_db)):
+async def predict(
+        features: schemas.InputFeatures,
+        db: Session = Depends(get_db)
+):
     """Predicts label for a given set of features"""
     load_dotenv()
     if (Path(__file__).parent / os.getenv("MODEL_PATH")).is_file():
