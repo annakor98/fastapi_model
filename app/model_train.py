@@ -4,13 +4,15 @@ import pickle
 from pathlib import Path
 import os
 
+
+from dotenv import load_dotenv
+
+
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
 from app.schemas import ModelMetrics
-
-from dotenv import load_dotenv
 
 
 def train_clf():
