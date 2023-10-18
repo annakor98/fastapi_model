@@ -19,4 +19,4 @@ jobs:
     - name: Install the project dependencies
       run: poetry install
     - name: Run tests
-      run: poetry run flake8
+      run: poetry run make lint
