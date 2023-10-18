@@ -2,13 +2,15 @@
 
 import pickle
 
+import os
+
+from pathlib import Path
+
+from dotenv import load_dotenv
+
 import numpy as np
 
 from app.schemas import InputFeatures, ModelPrediction
-
-from dotenv import load_dotenv
-import os
-from pathlib import Path
 
 
 def model_predict(data: InputFeatures):

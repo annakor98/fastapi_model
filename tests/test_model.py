@@ -1,9 +1,11 @@
+"""Model tests"""
+
+from typing import Literal
+
 import pytest
 
 from app.model_predict import model_predict
 from app.schemas import InputFeatures, ModelPrediction
-
-from typing import Literal
 
 
 @pytest.mark.parametrize(
@@ -51,6 +53,7 @@ def test_prediction(
         input_features: InputFeatures,
         expected_label: Literal[0, 1, 2]
 ):
+    """Test model predictions"""
     prediction = model_predict(input_features)
     assert isinstance(prediction, ModelPrediction)
     assert prediction.result == expected_label
