@@ -18,5 +18,5 @@ jobs:
       uses: abatilo/actions-poetry@v2
     - name: Install the project dependencies
       run: poetry install
-    - name: Run flake8
-      run: pylint main.py
+    - name: Run tests
+      run: pytest
