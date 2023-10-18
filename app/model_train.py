@@ -12,7 +12,7 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 
-from app.schemas import ModelMetrics
+from .schemas import ModelMetrics
 
 
 def train_clf():

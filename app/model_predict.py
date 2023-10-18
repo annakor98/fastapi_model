@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 
 import numpy as np
 
-from app.schemas import InputFeatures, ModelPrediction
+from .schemas import InputFeatures, ModelPrediction
 
 
 def model_predict(data: InputFeatures):

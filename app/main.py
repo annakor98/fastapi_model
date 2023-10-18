@@ -6,9 +6,9 @@ from dotenv import load_dotenv
 
 from fastapi import FastAPI
 
-from app.model_predict import model_predict
-from app.schemas import IrisSpecies, InputFeatures
-from app.model_train import train_clf
+from .model_predict import model_predict
+from .schemas import IrisSpecies, InputFeatures
+from .model_train import train_clf
 
 
 app = FastAPI()
