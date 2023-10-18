@@ -5,7 +5,7 @@ from pathlib import Path
 from fastapi import FastAPI
 
 from app.model_predict import model_predict
-from app.schemas import *
+from app.schemas import IrisSpecies, InputFeatures
 from app.model_train import train_clf
 
 import os

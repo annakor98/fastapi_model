@@ -32,7 +32,10 @@ def train_clf():
 
     load_dotenv()
 
-    with open(Path(__file__).parent / os.getenv("MODEL_PATH"), "wb") as model_file:
+    with open(
+            Path(__file__).parent / os.getenv("MODEL_PATH"),
+            "wb"
+    ) as model_file:
         pickle.dump(clf, model_file)
 
     return ModelMetrics(
