@@ -37,6 +37,7 @@ async def train():
 
 
 def get_db():
+    """Launches and closes session"""
     db = SessionLocal()
     try:
         yield db
