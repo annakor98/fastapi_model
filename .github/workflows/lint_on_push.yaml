@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Install Python
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v4
       with:
         python-version: '3.11'
         architecture: 'x64'
@@ -19,4 +19,4 @@ jobs:
     - name: Install the project dependencies
       run: poetry install
     - name: Run flake8
-      run: flake8
+      run: pylint main.py
