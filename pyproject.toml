@@ -15,6 +15,7 @@ pylint = "^3.0.1"
 make = "^0.1.6.post2"
 pytest = "^7.4.2"
 pytest-cov = "^4.1.0"
+sqlalchemy = "^2.0.22"
 
 
 [build-system]
