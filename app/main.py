@@ -67,6 +67,7 @@ async def predict(
         return prediction
     return {"message": "Please train model first!"}
 
+
 @app.get("/get_count_db")
 async def get_count(db: Session = Depends(get_db)):
     return {"count_entries": db.query(models.FLOWER).count()}
