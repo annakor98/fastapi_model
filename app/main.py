@@ -15,8 +15,6 @@ from .database import SessionLocal, engine
 
 
 app = FastAPI()
-models.Base.metadata.create_all(bind=engine)
-load_dotenv()
 
 
 @app.get("/")
@@ -36,51 +34,3 @@ async def train():
     """Trains model and returns accuracy values for train and test samples"""
     metrics = train_clf()
     return metrics
-
-
-def get_db():
-    """Launches and closes session"""
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-@app.post('/predict')
-async def predict(
-        features: schemas.InputFeatures,
-        db: Session = Depends(get_db)
-):
-    """Predicts label for a given set of features"""
-    if (Path(__file__).parent / os.getenv("MODEL_PATH")).is_file():
-        prediction = model_predict(features)
-        new_flower = models.FLOWER(
-            sepal_length=features.sepal_length,
-            sepal_width=features.sepal_width,
-            petal_length=features.petal_length,
-            petal_width=features.petal_width,
-            predicted_target=prediction.result,
-            request_time=datetime.now(),
-        )
-        db.add(new_flower)
-        db.commit()
-        db.refresh(new_flower)
-
-        return prediction
-    return {"message": "Please train model first!"}
-
-
-@app.get("/get_count_db")
-async def get_count(db: Session = Depends(get_db)):
-    """Get number of entries in the database"""
-    return {"count_entries": db.query(models.FLOWER).count()}
-
-
-@app.get("/get_latest_entry")
-async def get_latest_entry(db: Session = Depends(get_db)):
-    """Get the latest entry in the db"""
-    latest = db.query(models.FLOWER) \
-        .order_by(models.FLOWER.request_time.desc()) \
-        .first()
-    return latest

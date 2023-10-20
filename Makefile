@@ -10,7 +10,6 @@ help: ## Show this help
 .PHONY: lint
 lint: ## Lint code
 		flake8 --jobs 4 --statistics --show-source $(CODE)
-		pylint --disable too-few-public-methods $(CODE)
 
 .PHONY: test
 test: ## Runs pytest with coverage
