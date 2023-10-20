@@ -176,10 +176,16 @@ def test_hello():
 Тестирование endpoint'a /predict:
 ```python
 # tests/test_main.py
-@app.get("/get_latest_entry")
-async def get_latest_entry(db: Session = Depends(get_db)):
-    latest = db.query(models.FLOWER) \
-        .order_by(models.FLOWER.request_time.desc()) \
-        .first()
-    return latest
+
+def test_predict():
+    response = client.post('/predict',
+                           json={
+                                   "sepal_length": 0,
+                                   "sepal_width": 0,
+                                   "petal_length": 0,
+                                   "petal_width": 0
+                               })
+
+    assert response.status_code == 200
+    assert response.json()["result"] == 0
 ```
