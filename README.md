@@ -9,4 +9,4 @@
 
 [intro]: assets/materials/fastapi_introduction.md "intro"
 [db]: assets/materials/add_database.md "db"
-[ci_intro]: assets/materials/add_database.md "ci_intro"
+[ci_intro]: assets/materials/ci_intro.md "ci_intro"
