@@ -1,5 +1,6 @@
 """Module contains API endpoints"""
 
+from datetime import datetime
 from pathlib import Path
 import os
 from dotenv import load_dotenv
@@ -15,6 +16,7 @@ from .database import SessionLocal, engine
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
+load_dotenv()
 
 
 @app.get("/")
@@ -51,7 +53,6 @@ async def predict(
         db: Session = Depends(get_db)
 ):
     """Predicts label for a given set of features"""
-    load_dotenv()
     if (Path(__file__).parent / os.getenv("MODEL_PATH")).is_file():
         prediction = model_predict(features)
         new_flower = models.FLOWER(
@@ -60,6 +61,7 @@ async def predict(
             petal_length=features.petal_length,
             petal_width=features.petal_width,
             predicted_target=prediction.result,
+            request_time=datetime.now(),
         )
         db.add(new_flower)
         db.commit()
@@ -69,7 +71,16 @@ async def predict(
     return {"message": "Please train model first!"}
 
 
-@app.get("/get_count")
-async def get_last(db: Session = Depends(get_db)):
+@app.get("/get_count_db")
+async def get_count(db: Session = Depends(get_db)):
     """Get number of entries in the database"""
     return {"count_entries": db.query(models.FLOWER).count()}
+
+
+@app.get("/get_latest_entry")
+async def get_latest_entry(db: Session = Depends(get_db)):
+    """Get the latest entry in the db"""
+    latest = db.query(models.FLOWER) \
+        .order_by(models.FLOWER.request_time.desc()) \
+        .first()
+    return latest
