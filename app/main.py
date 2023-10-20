@@ -8,15 +8,21 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-from . import models, schemas
+from . import schemas, models
 from .model_predict import model_predict
 from .model_train import train_clf
-from .database import SessionLocal, engine
-
+from .database import engine, SessionLocal
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
-load_dotenv()
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
 
 @app.get("/")
@@ -38,21 +44,12 @@ async def train():
     return metrics
 
 
-def get_db():
-    """Launches and closes session"""
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
 @app.post('/predict')
 async def predict(
         features: schemas.InputFeatures,
         db: Session = Depends(get_db)
 ):
-    """Predicts label for a given set of features"""
+    load_dotenv()
     if (Path(__file__).parent / os.getenv("MODEL_PATH")).is_file():
         prediction = model_predict(features)
         new_flower = models.FLOWER(
@@ -73,14 +70,13 @@ async def predict(
 
 @app.get("/get_count_db")
 async def get_count(db: Session = Depends(get_db)):
-    """Get number of entries in the database"""
     return {"count_entries": db.query(models.FLOWER).count()}
 
 
 @app.get("/get_latest_entry")
 async def get_latest_entry(db: Session = Depends(get_db)):
-    """Get the latest entry in the db"""
     latest = db.query(models.FLOWER) \
         .order_by(models.FLOWER.request_time.desc()) \
         .first()
+
     return latest

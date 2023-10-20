@@ -1,12 +1,9 @@
-"""Models"""
-
 from sqlalchemy import Column, Float, Integer, DateTime
 
 from .database import Base
 
 
 class FLOWER(Base):
-    """Database entry model"""
     __tablename__ = "flowers"
 
     id = Column(Integer, primary_key=True)
