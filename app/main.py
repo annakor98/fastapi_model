@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 
 from . import schemas, models
 from .model_predict import model_predict
@@ -80,3 +81,15 @@ async def get_latest_entry(db: Session = Depends(get_db)):
         .first()
 
     return latest
+
+
+@app.get("/get_counts")
+async def get_count(db: Session = Depends(get_db)):
+    return {i: j for i, j in db.query(models.FLOWER.id,
+                    func.count(models.FLOWER.request_time)) \
+        .group_by(models.FLOWER.id).all()}
+
+
+@app.get("/filter_id/{n}")
+async def filter_id(n: int, db: Session = Depends(get_db)):
+    return db.query(models.FLOWER).filter(models.FLOWER.id >= n).count()
