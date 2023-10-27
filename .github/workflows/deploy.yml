@@ -20,4 +20,4 @@ jobs:
     - name: build image
       run: docker build -t annakor98/myimage .
     - name: push to Docker Hub
-      run: docker push myimage
+      run: docker push annakor98/myimage:latest
