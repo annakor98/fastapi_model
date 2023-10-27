@@ -44,7 +44,7 @@ jobs:
 <summary><b> Все вместе </b></summary>
 
 ```yaml
-# .github/workflow/lint_and_test_on_push.yaml
+# .github/workflow/ci.yaml
 
 on:
   push
