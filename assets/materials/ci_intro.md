@@ -44,7 +44,7 @@ jobs:
 <summary><b> Все вместе </b></summary>
 
 ```yaml
-# .github/workflow/ci.yaml
+# .github/workflow/ci.yml
 
 on:
   push
