@@ -6,9 +6,9 @@ on:
     types:
     - completed
 
-    push:
-      branches:
-      - '*'
+  push:
+    branches:
+    - '*'
 
 jobs:
   upload:
