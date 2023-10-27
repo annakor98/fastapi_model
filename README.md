@@ -5,8 +5,12 @@
 1. [Работа с БД][db]
 2. [Введение в CI/CD][ci_intro]
 
+## III. Семинар 27.10
+1. [Docker][dock]
+
 ---
 
 [intro]: assets/materials/fastapi_introduction.md "intro"
 [db]: assets/materials/add_database.md "db"
 [ci_intro]: assets/materials/ci_intro.md "ci_intro"
+[dock]: assets/materials/docker.md "dock"
