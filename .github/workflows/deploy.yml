@@ -21,4 +21,3 @@ jobs:
       run: docker build -t myimage .
     - name: push to Docker Hub
       run: docker push
-
